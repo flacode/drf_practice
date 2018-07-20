@@ -7,7 +7,6 @@ from django_countries.fields import CountryField
 class User(AbstractUser):
     country = CountryField()
 
-
 class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()

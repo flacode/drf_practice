@@ -10,9 +10,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsUserOnly(permissions.BasePermission):
-    message = 'You can not edit or delete this post'
 
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
         return obj.id == request.user.id

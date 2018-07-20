@@ -1,15 +1,16 @@
-from django.shortcuts import render
-from .serializers import PostSerializer, UserSerializer
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import permissions
+from rest_framework import status
+from rest_framework.response import Response
 from .models import Post, User
 from .permissions import IsOwnerOrReadOnly, IsUserOnly
+from .serializers import PostSerializer, UserSerializer, UserRegistrationSerializer
 
 
 class PostList(generics.ListCreateAPIView):
     """
-        Private: Authenticated user can view all posts
+        Private: Unauthenticated user can only view all posts
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -51,12 +52,19 @@ class UserRegistration(generics.CreateAPIView):
         Public: User can create an account
     """
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserRegistrationSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({'message':"user account successfully created"}, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class UserView(generics.RetrieveUpdateAPIView):
     """
-        Private: Allow a user to view their details and update them
+        Private: Allow a user to only view their details and update them
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
