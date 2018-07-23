@@ -4,7 +4,7 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
 from .models import Post, User
-from .permissions import IsOwnerOrReadOnly, IsUserOnly
+from .permissions import IsOwnerOrReadOnly, IsCreatorOnly
 from .serializers import PostSerializer, UserSerializer, UserRegistrationSerializer
 
 
@@ -26,7 +26,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, )
 
 
 class UserList(generics.ListAPIView):
@@ -68,4 +68,4 @@ class UserView(generics.RetrieveUpdateAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsUserOnly, )
+    permission_classes = (IsCreatorOnly, )

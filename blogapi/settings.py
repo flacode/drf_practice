@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from .local_settings import DATABASE_CONFIG
-
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'posts.apps.PostsConfig'
+    'posts.apps.PostsConfig',
+    'coverage'
 ]
 
 MIDDLEWARE = [
@@ -77,16 +77,17 @@ WSGI_APPLICATION = 'blogapi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASE_CONFIG['NAME'],
-        'USER': DATABASE_CONFIG['USER'],
-        'PASSWORD': DATABASE_CONFIG['PASSWORD'],
-        'HOST': 'localhost',
-        'PORT': '5432',
     }
 }
+
+if os.environ.get('DATABASE_URL', None):
+    DATABASES['default'] = dj_database_url.config()
+else:
+    print("ERROR: You need to configure a DATABASE_URL environment variable.")
 
 
 # Password validation
@@ -132,5 +133,6 @@ AUTH_USER_MODEL = 'posts.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    )
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
