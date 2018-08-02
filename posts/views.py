@@ -19,11 +19,17 @@ def api_root(request, format=None):
         'posts': reverse('post_list')
     })
 
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token,
+        'user': UserSerializer(user, context={'request': request}).data
+    }
+
 class PostList(generics.ListCreateAPIView):
     """
         Private: Unauthenticated user can only view all posts
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.order_by('-updated_at')
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
@@ -44,7 +50,7 @@ class UserList(generics.ListAPIView):
     """
         Private: Administrator/staff can view a list of available users
     """
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('username')
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser, )
 
