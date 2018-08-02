@@ -2,11 +2,22 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import permissions
 from rest_framework import status
+from django.urls import reverse
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .models import Post, User
 from .permissions import IsOwnerOrReadOnly, IsCreatorOnly
 from .serializers import PostSerializer, UserSerializer, UserRegistrationSerializer
 
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'useradmin': reverse('user_list'),
+        'register': reverse('register'),
+        'login': reverse('login'),
+        'posts': reverse('post_list')
+    })
 
 class PostList(generics.ListCreateAPIView):
     """
