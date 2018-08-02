@@ -44,22 +44,24 @@ Within the project's root directory, run
     $ python manage.py runserver
  ```
 
+**Base url:** http://localhost:8000/api/v1/
+
 ## End points
 ### Endpoints to create a user account and login into the application
 HTTP Method|End point | Public Access|Action
 -----------|----------|--------------|------
-POST | /entries/register/ | True | Create an account.
-POST | /entries/login/  | True | Login a user.
-GET  | /entries/useradmin/ | False | Return list of registered users to a super user.
-GET or DELETE  | /entries/useradmin/<int:pk>/ | False | Allow super user to view user details and delete a user.
-GET or PUT | /entries/user/<int:pk>/ | False | Allow a user to view their account details and update them.
+POST | /posts/register/ | True | Create an account.
+POST | /posts/login/  | True | Login a user.
+GET  | /posts/admin/ | False | Return list of registered users to a super user.
+GET or DELETE  | /posts/admin/<int:pk>/ | False | Allow super user to view user details and delete a user.
+GET or PUT | /posts/user/<int:pk>/ | False | Allow a user to view their account details and update them.
 
 
 ## End points
 ### Endpoints for blog posts
 HTTP Method|End point | Public Access|Action
 -----------|----------|--------------|------
-GET | /entries/ | True | Get all blog posts.
-POST | /entries/  | False | Create a post.
-GET  | /entries/<int:pk>/ | False | Retrieve a certain post.
-PUT or DELETE | /entries/<int:pk>/ | Update or delete a certain post by the author.
+GET | /posts/ | True | Get all blog posts.
+POST | /posts/  | False | Create a post.
+GET  | /posts/<int:pk>/ | False | Retrieve a certain post.
+PUT or DELETE | /posts/<int:pk>/ | False | Update or delete a certain post by the author.
