@@ -49,7 +49,7 @@ class PostsTestCase(TransactionTestCase):
     def test_get_all_posts(self):
         self.create_post()
         response = self.client.get(reverse('post_list'))
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data['results']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_all_posts_unauthenticated_user(self):

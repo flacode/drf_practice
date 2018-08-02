@@ -1,15 +1,15 @@
 # BlogPost API
 
-[![Build Status](https://travis-ci.com/flacode/drf_practice.svg?branch=ch-test-features)](https://travis-ci.com/flacode/drf_practice)
-[![Coverage Status](https://coveralls.io/repos/github/flacode/drf_practice/badge.svg?branch=ch-test-features)](https://coveralls.io/github/flacode/drf_practice?branch=ch-test-features)
+[![Build Status](https://travis-ci.com/flacode/drf_practice.svg?branch=develop)](https://travis-ci.com/flacode/drf_practice)
+[![Coverage Status](https://coveralls.io/repos/github/flacode/drf_practice/badge.svg?branch=develop)](https://coveralls.io/github/flacode/drf_practice?branch=ch-test-features)
 [![Maintainability](https://api.codeclimate.com/v1/badges/159c3d486314a760be7a/maintainability)](https://codeclimate.com/github/flacode/drf_practice/maintainability)
 
-> BlogPost API is a simple application that allows users to write, read and comment on blogs. 
+> BlogPost API is a simple application that allows users to write, read and comment on blogs.
 
 ## Features
 - Users can create accounts.
 - Users can log in.
-- Users can create, view, update and delete a blog post. 
+- Users can create, view, update and delete a blog post.
 
 ## Running the tests
 Within the project's root directory, run
@@ -18,7 +18,7 @@ Within the project's root directory, run
 
 ## Getting Started
 ### Prerequisites
-1. Install requirements, run 
+1. Install requirements, run
 ```sh
      pip install -r requirements.txt
 ```
@@ -33,9 +33,9 @@ Within the project's root directory, run
    ```sh
       $ export DATABASE_URL='postgres://USER:PASSWORD@HOST:PORT/NAME'
    ```
-   
+
 3. Switch to the project's root directory and run migrations to create database tables.
-```sh 
+```sh
     $ python manage.py makemigrations
     $ python manage.py migrate
  ```

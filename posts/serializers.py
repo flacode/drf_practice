@@ -4,8 +4,8 @@ from django.contrib.auth.hashers import make_password
 from .models import Post, User
 
 
-class UserSerializer(CountryFieldMixin, serializers.ModelSerializer):
-    posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+class UserSerializer(CountryFieldMixin, serializers.HyperlinkedModelSerializer):
+    posts = serializers.HyperlinkedRelatedField(many=True, view_name='post_detail', read_only=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'posts', 'country')
@@ -28,7 +28,7 @@ class UserRegistrationSerializer(CountryFieldMixin, serializers.ModelSerializer)
         instance.confirm_password = make_password(confirm_password)
         return instance
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:

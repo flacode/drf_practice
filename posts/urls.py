@@ -3,7 +3,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 from . import views
 
 urlpatterns = [
-    path('', views.PostList.as_view(), name='post_list'),
+    path('', views.api_root, name='api_root'),
+    path('posts/', views.PostList.as_view(), name='post_list'),
     path('<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
     path('useradmin/', views.UserList.as_view(), name='user_list'),
     path('useradmin/<int:pk>/', views.UserAdministration.as_view(), name='user_details'),
